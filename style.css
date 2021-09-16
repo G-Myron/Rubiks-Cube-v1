@@ -62,6 +62,11 @@ html,body{
     transform: rotateY(0deg) translateZ(35vmin);
 }
 
+.back{
+    background-color: green;
+    transform: rotateY(180deg) translateZ(35vmin);
+}
+
 .right{
     background-color: red;
     transform: rotateY(90deg) translateZ(35vmin);
@@ -80,11 +85,6 @@ html,body{
 .bottom{
     background-color: orange;
     transform: rotateX(-90deg) translateZ(35vmin);
-}
-
-.back{
-    background-color: green;
-    transform: rotateY(180deg) translateZ(35vmin);
 }
 
 
