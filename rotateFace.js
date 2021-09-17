@@ -25,6 +25,10 @@ faces.forEach( (face, iter)=> {
     document.addEventListener("mousemove", (event) => rotateFace(event.x));
     document.addEventListener("mouseup", endFace);
 
+    face.addEventListener("touchstart", (event)=> faceTouch(event.touches[0].clientX) );
+    document.addEventListener("touchmove", (event)=> rotateFace(event.touches[0].clientX));
+    document.addEventListener("touchend", endFace);
+
 
     function faceTouch(x){
         moving = true;
