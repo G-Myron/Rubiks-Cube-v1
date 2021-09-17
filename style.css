@@ -17,6 +17,9 @@ html,body{
 *:active *{
     cursor: grabbing;
 }
+*{
+    transition: all .1s;
+}
 
 .container{
     width: 70vmin;
@@ -32,9 +35,8 @@ html,body{
     box-shadow: 2em black;
     transform-style: preserve-3d;
     transform: translateZ(-35vmin);
-    transition: .1s;
 
-    /* animation: rotateCube 10s 1 linear; */
+    /* animation: rotateCube 4s 1 linear; */
 }
 
 @keyframes rotateCube{

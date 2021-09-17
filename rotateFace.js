@@ -1,49 +1,69 @@
-let faces = document.querySelectorAll(".face");
+const faces = document.querySelectorAll(".face");
 
 rotaionsList = [
-    "rotateY(0deg) translateZ(35vmin)",
-    "rotateY(180deg) translateZ(35vmin)",
-    "rotateY(90deg) translateZ(35vmin)",
-    "rotateY(-90deg) translateZ(35vmin)",
-    "rotateX(90deg) translateZ(35vmin)",
-    "rotateX(-90deg) translateZ(35vmin)"
+    "rotateY(0deg) translateZ(35vmin) rotate(0deg)",
+    "rotateY(180deg) translateZ(35vmin) rotate(0deg)",
+    "rotateY(90deg) translateZ(35vmin) rotate(0deg)",
+    "rotateY(-90deg) translateZ(35vmin) rotate(0deg)",
+    "rotateX(90deg) translateZ(35vmin) rotate(0deg)",
+    "rotateX(-90deg) translateZ(35vmin) rotate(0deg)"
 ]
 
+
+
 faces.forEach( (face, iter)=> {
-    let x0,y0, moving=false;
-    let [initialAngX, initialAngY] = [0, 0];
-    let currentAngX, currentAngY;
+    let x0=0, moving=false;
+    let initialAng = 0;
+    let currentAng;
 
-    face.style.transform = rotaionsList[iter];
+    addMethodsToFace();
+    face.reset();
 
-    face.addEventListener("mousedown", (event) => faceTouch(event.x,event.y));
-    document.addEventListener("mousemove", (event) => rotateFace(event.x,event.y));
+    //--------------------Event Listeners
+
+    face.addEventListener("mousedown", (event) => faceTouch(event.x));
+    document.addEventListener("mousemove", (event) => rotateFace(event.x));
     document.addEventListener("mouseup", endFace);
 
-    function faceTouch(x, y){
+
+    function faceTouch(x){
         moving = true;
-        [x0,y0] = [x,y];
+        x0 = x;
     }
 
-    function rotateFace(x, y, friction = 2){
+    function rotateFace(x, friction = 2){
         if(!moving) return;
     
         dx = x - x0;
-        dy = y - y0;
-        [x0,y0] = [x,y];
+        ang =  dx / friction;
+
+        currentAng = initialAng + ang;
     
-        angY =  dx / friction;
-        angX = -dy / friction;
-    
-        [currentAngX, currentAngY] = [initialAngX + angX, initialAngY + angY];
-    
-        face.style.transform += `rotate(${currentAngY}deg)`;
+        setAngle(currentAng);
     }
 
     function endFace(){
         if(!moving) return;
-        [initialAngX, initialAngY] = [currentAngX, currentAngY];
+        setAngle( Math.round( currentAng/90 ) * 90);
+        initialAng = currentAng;
         moving = false;
+    }
+
+
+
+    //-----------------------------Other Functions
+
+    function setAngle(ang){
+        face.style.transform = face.style.transform.split(" ").slice(0,2).join(" ") +
+                                ` rotate(${ang}deg)`;
+    }
+
+
+    function addMethodsToFace(){
+        face.reset = function(){
+            face.style.transform = rotaionsList[iter];
+            initialAng = 0;
+        }  
     }
 
 });
