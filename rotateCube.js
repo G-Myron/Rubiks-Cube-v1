@@ -1,7 +1,10 @@
 const cube = document.querySelector(".cube");
+const halfSide = getComputedStyle(document.documentElement).getPropertyValue("--half-side").trim();
+
 let x0,y0, moving=false;
 let [initialAngX, initialAngY] = [0, 0];
 let currentAngX, currentAngY;
+
 
 addMethodsToCube();
 cube.reset();
@@ -27,8 +30,8 @@ window.addEventListener("wheel", zoom);
 //-----------------------Rotation functions
 
 function callFunction(event, func, ...args){
-    if(event.target.classList.contains("face")) return;
-    else func(...args);
+    if(event.target.contains(cube))
+        func(...args);
 }
 
 
@@ -70,7 +73,7 @@ function zoom(event){
 
 function addMethodsToCube(){
     cube.reset = function(){
-        cube.style.transform = "translateZ(-35vmin) rotateX(0) rotateY(0)";
+        cube.style.transform = `translateZ(-${halfSide}) rotateX(0) rotateY(0)`;
         initialAngX= initialAngY = 0;
-    }    
+    }
 }

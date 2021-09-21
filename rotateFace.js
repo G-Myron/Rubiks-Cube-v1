@@ -1,25 +1,24 @@
 const faces = document.querySelectorAll(".face");
 
 rotaionsList = [
-    "rotateY(0deg) translateZ(35vmin) rotate(0deg)",
-    "rotateY(180deg) translateZ(35vmin) rotate(0deg)",
-    "rotateY(90deg) translateZ(35vmin) rotate(0deg)",
-    "rotateY(-90deg) translateZ(35vmin) rotate(0deg)",
-    "rotateX(90deg) translateZ(35vmin) rotate(0deg)",
-    "rotateX(-90deg) translateZ(35vmin) rotate(0deg)"
+    `rotateY(0deg) translateZ(${halfSide}) rotate(0deg)`,
+    `rotateY(180deg) translateZ(${halfSide}) rotate(0deg)`,
+    `rotateY(90deg) translateZ(${halfSide}) rotate(0deg)`,
+    `rotateY(-90deg) translateZ(${halfSide}) rotate(0deg)`,
+    `rotateX(90deg) translateZ(${halfSide}) rotate(0deg)`,
+    `rotateX(-90deg) translateZ(${halfSide}) rotate(0deg)`
 ]
 
 
 
 faces.forEach( (face, iter)=> {
     let x0=0, moving=false;
-    let initialAng = 0;
-    let currentAng;
+    let initialAng, currentAng;
 
     addMethodsToFace();
     face.reset();
 
-    //--------------------Event Listeners
+    //------------------------------------Event Listeners
 
     face.addEventListener("mousedown", (event) => faceTouch(event.x));
     document.addEventListener("mousemove", (event) => rotateFace(event.x));
@@ -55,7 +54,7 @@ faces.forEach( (face, iter)=> {
 
 
 
-    //-----------------------------Other Functions
+    //--------------------------------Other Functions
 
     function setAngle(ang){
         face.style.transform = face.style.transform.split(" ").slice(0,2).join(" ") +
